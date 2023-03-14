@@ -12,7 +12,9 @@ const EmailVerification = () => {
   const verifyEmail = async () => {
     try {
       const response = await axios.get(
-        `http://devkim.torina.id:8069/api/v1/auth/verification/${code}`
+        `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+          import.meta.env.VITE_AUTH_URL
+        }/verification/${code}`
       )
       if (response.status === 201) {
         setIsLoading(false)

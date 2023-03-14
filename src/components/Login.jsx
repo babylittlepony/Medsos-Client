@@ -21,64 +21,64 @@ const Login = ({}) => {
   Password: egar123
   /*/
 
-  const onSubmit = (data) => {
-    dispatch(loginUser(data))
-  }
-  useEffect(() => {
-    return () => {
-      dispatch(clearState())
-    }
-  }, [])
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(errorMessage)
-      dispatch(clearState())
-    }
-    if (isSuccess) {
-      dispatch(clearState())
-      navigate("/")
-    }
-  }, [isError, isSuccess])
-
-  // const handleLogin = async (e) => {
-  //   e.preventDefault()
-
-  //   try {
-  //     await toast.promise(
-  //       axios.post(
-  //         `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-  //           import.meta.env.VITE_AUTH_URL
-  //         }/login`,
-  //         {
-  //           username,
-  //           password,
-  //         },
-  //         { withCredentials: true }
-  //       ),
-  //       {
-  //         loading: "Logging in...",
-  //         success: (response) => {
-  //           navigate("/")
-  //           console.log(response)
-  //           return "Login berhasil"
-  //         },
-  //         error: (error) => {
-  //           console.log(error.response)
-  //           return error.response.data.data.message
-  //         },
-  //       }
-  //     )
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
+  // const onSubmit = (data) => {
+  //   dispatch(loginUser(data))
   // }
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(clearState())
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(errorMessage)
+  //     dispatch(clearState())
+  //   }
+  //   if (isSuccess) {
+  //     dispatch(clearState())
+  //     navigate("/")
+  //   }
+  // }, [isError, isSuccess])
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    try {
+      await toast.promise(
+        axios.post(
+          `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+            import.meta.env.VITE_AUTH_URL
+          }/login`,
+          {
+            username,
+            password,
+          },
+          { withCredentials: true }
+        ),
+        {
+          loading: "Logging in...",
+          success: (response) => {
+            navigate("/")
+            console.log(response)
+            return "Login berhasil"
+          },
+          error: (error) => {
+            console.log(error.response)
+            return error.response.data.data.message
+          },
+        }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="w-1/2 mx-auto my-10 max-w-sm bg-gray-200 shadow-md">
       <div className="p-6">
         {/* FORM */}
-        <form method="POST" onSubmit={handleSubmit(onSubmit)}>
+        <form method="POST" onSubmit={handleLogin}>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="username">
               Username

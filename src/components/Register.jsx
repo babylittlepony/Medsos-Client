@@ -19,65 +19,65 @@ const Register = () => {
   const { isFetching, isSuccess, isError, errorMessage } =
     useSelector(userSelector)
 
-  const onSubmit = (data) => {
-    dispatch(registerUser(data))
-  }
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearState())
-    }
-  }, [])
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(clearState())
-      navigate("/")
-    }
-    if (isError) {
-      toast.error(errorMessage)
-      dispatch(clearState())
-    }
-  }, [isSuccess, isError])
-
-  // const handleRegister = async (e) => {
-  //   e.preventDefault()
-
-  //   try {
-  //     const { data } = await toast.promise(
-  //       axios.post(
-  //         `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-  //           import.meta.env.VITE_AUTH_URL
-  //         }/register`,
-  //         {
-  //           username,
-  //           password,
-  //           nama,
-  //           email,
-  //           no_selular,
-  //         },
-  //         { withCredentials: true }
-  //       ),
-  //       {
-  //         loading: "Please wait...",
-  //         success: (response) => response.data.data.message,
-  //         error: (error) => {
-  //           console.log(error.response)
-  //           return error.response.data.data.message
-  //         },
-  //       }
-  //     )
-  //     console.log(data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
+  // const onSubmit = (data) => {
+  //   dispatch(registerUser(data))
   // }
+
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(clearState())
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     dispatch(clearState())
+  //     navigate("/")
+  //   }
+  //   if (isError) {
+  //     toast.error(errorMessage)
+  //     dispatch(clearState())
+  //   }
+  // }, [isSuccess, isError])
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+
+    try {
+      const { data } = await toast.promise(
+        axios.post(
+          `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+            import.meta.env.VITE_AUTH_URL
+          }/register`,
+          {
+            username,
+            password,
+            nama,
+            email,
+            no_selular,
+          },
+          { withCredentials: true }
+        ),
+        {
+          loading: "Please wait...",
+          success: (response) => response.data.data.message,
+          error: (error) => {
+            console.log(error.response)
+            return error.response.data.data.message
+          },
+        }
+      )
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="w-1/2 mx-auto my-10 max-w-sm bg-gray-200 shadow-md">
       <div className="p-6">
         {/* FORM */}
-        <form method="POST" onSubmit={handleSubmit(onSubmit)}>
+        <form method="POST" onSubmit={handleRegister}>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="username">
               Username

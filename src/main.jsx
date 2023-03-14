@@ -5,6 +5,9 @@ import { Toaster } from "react-hot-toast"
 import { Provider } from "react-redux"
 import App from "./App"
 import "./index.css"
+import Login from "./components/Login"
+import Register from "./components/Register"
+import EmailVerification from "./components/Verification"
 
 import store from "./app/store"
 

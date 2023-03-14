@@ -11,7 +11,7 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between gap-4">
       <p className="text-lg">Logo</p>
       <div className="inline-flex gap-4">
         <button onClick={navigateLogin} className="">
