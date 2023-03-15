@@ -33,7 +33,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <Provider store={store}>
-      {/* <App /> */}
       <Toaster toastOptions={{ duration: 4000 }} />
       <RouterProvider router={router} />
     </Provider>

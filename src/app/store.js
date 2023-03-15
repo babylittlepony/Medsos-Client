@@ -1,13 +1,16 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
+import { loadState, saveState } from "../helper/manageState"
 import authReducer from "../slices/authSlice"
 
-export default configureStore({
+const persistedAuthState = loadState()
+
+const store = configureStore({
   reducer: { auth: authReducer },
+  preloadedState: persistedAuthState,
 })
 
-// const rootReducer = combineReducers({
-//   user: userReducer,
-//   // other reducers...
-// });
+store.subscribe(() => {
+  saveState(store.getState().auth)
+})
 
-// export default rootReducer;
+export default store

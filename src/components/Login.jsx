@@ -13,32 +13,11 @@ const Login = ({}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  // const error = useSelector((state) => state.auth.error)
 
   /*/ 
   Username: Egarpramana
   Password: egar123
   /*/
-
-  // const onSubmit = (data) => {
-  //   dispatch(loginUser(data))
-  // }
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(clearState())
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(errorMessage)
-  //     dispatch(clearState())
-  //   }
-  //   if (isSuccess) {
-  //     dispatch(clearState())
-  //     navigate("/")
-  //   }
-  // }, [isError, isSuccess])
 
   const handleLogin = async (e) => {
     e.preventDefault()

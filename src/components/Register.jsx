@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { registerUser } from "../slices/authSlice"
 
 const Register = () => {
   const [username, setUsername] = useState("")
@@ -14,61 +15,39 @@ const Register = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // const { isFetching, isSuccess, isError, errorMessage } =
-  //   useSelector(userSelector)
-
-  // const onSubmit = (data) => {
-  //   dispatch(registerUser(data))
-  // }
-
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(clearState())
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     dispatch(clearState())
-  //     navigate("/")
-  //   }
-  //   if (isError) {
-  //     toast.error(errorMessage)
-  //     dispatch(clearState())
-  //   }
-  // }, [isSuccess, isError])
-
   const handleRegister = async (e) => {
     e.preventDefault()
 
-    try {
-      const { data } = await toast.promise(
-        axios.post(
-          `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-            import.meta.env.VITE_AUTH_URL
-          }/register`,
-          {
-            username,
-            password,
-            nama,
-            email,
-            no_selular,
-          },
-          { withCredentials: true }
-        ),
-        {
-          loading: "Please wait...",
-          success: (response) => response.data.data.message,
-          error: (error) => {
-            console.log(error.response)
-            return error.response.data.data.message
-          },
-        }
-      )
-      console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
+    dispatch(registerUser({ username, password, nama, email, no_selular }))
+
+    // try {
+    //   const { data } = await toast.promise(
+    //     axios.post(
+    //       `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+    //         import.meta.env.VITE_AUTH_URL
+    //       }/register`,
+    //       {
+    //         username,
+    //         password,
+    //         nama,
+    //         email,
+    //         no_selular,
+    //       },
+    //       { withCredentials: true }
+    //     ),
+    //     {
+    //       loading: "Please wait...",
+    //       success: (response) => response.data.data.message,
+    //       error: (error) => {
+    //         console.log(error.response)
+    //         return error.response.data.data.message
+    //       },
+    //     }
+    //   )
+    //   console.log(data)
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   return (

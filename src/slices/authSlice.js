@@ -27,14 +27,20 @@ const authSlice = createSlice({
       state.isLoggedIn = false
       state.error = null
     },
+    registerStart(state) {
+      state.loading = true
+      state.error = null
+    },
     registerSuccess(state, action) {
       state.currentUser = action.payload
       state.isLoggedIn = true
       state.error = null
+      state.loading = false
     },
     registerFailure(state, action) {
       state.currentUser = null
       state.error = action.payload
+      state.loading = false
     },
   },
 })
@@ -64,12 +70,16 @@ export const loginUser = (credentials) => async (dispatch) => {
 
 export const registerUser = (userData) => async (dispatch) => {
   try {
+    dispatch(registerStart())
+    toast.loading("Register...")
+
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
         import.meta.env.VITE_AUTH_URL
       }/register`,
       userData
     )
+
     dispatch(registerSuccess(response.data))
     console.log(response)
     toast.success(response.data?.data?.message)
@@ -77,7 +87,7 @@ export const registerUser = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch(registerFailure(error.response.data.error))
     console.log(error)
-    toast.error("Registration failed. Please try again.")
+    toast.error(error.response.data.data.message || "Error, please try again")
     return Promise.reject(error.response.data.error)
   }
 }
@@ -85,6 +95,7 @@ export const registerUser = (userData) => async (dispatch) => {
 export const {
   loginSuccess,
   loginFailure,
+  registerStart,
   registerSuccess,
   registerFailure,
   logout,
