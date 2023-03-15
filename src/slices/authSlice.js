@@ -41,33 +41,26 @@ const authSlice = createSlice({
 
 export const loginUser = (credentials) => async (dispatch) => {
   try {
-    await toast.promise(
-      axios.post(
-        `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-          import.meta.env.VITE_AUTH_URL
-        }/login`,
-        credentials
-      ),
-      {
-        loading: "Logging in...",
-        success: (response) => {
-          dispatch(loginSuccess(response.data))
-          console.log(response)
-          navigate("/")
-          Promise.resolve(response.data)
-          return response.data?.data?.message
-        },
-      }
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+        import.meta.env.VITE_AUTH_URL
+      }/login`,
+      credentials
     )
+    dispatch(loginSuccess(response.data))
+    console.log(response)
+    navigate("/")
+    return Promise.resolve(response.data)
   } catch (error) {
     console.log(error)
     dispatch(loginFailure(error.response?.data?.error))
+    return Promise.reject(error.response.data.error)
   }
 }
 
 export const registerUser = (userData) => async (dispatch) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
         import.meta.env.VITE_AUTH_URL
       }/register`,
