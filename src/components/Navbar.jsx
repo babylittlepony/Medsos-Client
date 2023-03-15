@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 export const Navbar = () => {
+  const currentUser = useSelector((state) => state.auth.currentUser)
   const navigate = useNavigate()
 
   const navigateLogin = () => {

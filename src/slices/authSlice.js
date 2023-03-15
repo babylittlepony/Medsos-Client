@@ -47,13 +47,17 @@ export const loginUser = (credentials) => async (dispatch) => {
       }/login`,
       credentials
     )
-    dispatch(loginSuccess(response.data))
+    const data = response.data.data
+    const token = response.data.data.accessToken
+    dispatch(loginSuccess({ data, token }))
+
     console.log(response)
-    navigate("/")
+    toast.success("Login sukses")
     return Promise.resolve(response.data)
   } catch (error) {
     console.log(error)
     dispatch(loginFailure(error.response?.data?.error))
+    toast.error("Login gagal")
     return Promise.reject(error.response.data.error)
   }
 }
@@ -68,8 +72,7 @@ export const registerUser = (userData) => async (dispatch) => {
     )
     dispatch(registerSuccess(response.data))
     console.log(response)
-    navigate("/")
-    toast.success("Registration successful!")
+    toast.success(response.data?.data?.message)
     return Promise.resolve(response.data)
   } catch (error) {
     dispatch(registerFailure(error.response.data.error))

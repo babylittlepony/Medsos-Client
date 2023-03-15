@@ -12,6 +12,7 @@ const Login = ({}) => {
   const [password, setPassword] = useState("")
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   // const error = useSelector((state) => state.auth.error)
 
   /*/ 
@@ -43,6 +44,7 @@ const Login = ({}) => {
     e.preventDefault()
 
     dispatch(loginUser({ username, password }))
+    navigate("/")
 
     // try {
     //   await toast.promise(

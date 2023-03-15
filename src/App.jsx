@@ -6,6 +6,8 @@ function App() {
   const currentUser = useSelector((state) => state.auth.currentUser)
   const accessToken = useSelector((state) => state.auth.token)
 
+  const username = currentUser ? currentUser.data?.username : null
+
   const authState = useSelector((state) => state.auth)
   console.log(authState)
 
@@ -14,7 +16,7 @@ function App() {
       <Navbar />
       <div>
         {currentUser ? (
-          <p>Hello, {currentUser.username}!</p>
+          <p>Hello, {username}!</p>
         ) : (
           <p>Welcome to the homepage!</p>
         )}
