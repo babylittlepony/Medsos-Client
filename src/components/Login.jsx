@@ -4,17 +4,15 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { userSelector } from "../slices/UserSlice"
+import { loginUser } from "../slices/authSlice"
+// import { userSelector } from "../slices/UserSlice"
 
 const Login = ({}) => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { register, errors, handleSubmit } = useForm()
-  const { isFetching, isSuccess, isError, errorMessage } =
-    useSelector(userSelector)
+  // const error = useSelector((state) => state.auth.error)
 
   /*/ 
   Username: Egarpramana
@@ -44,34 +42,36 @@ const Login = ({}) => {
   const handleLogin = async (e) => {
     e.preventDefault()
 
-    try {
-      await toast.promise(
-        axios.post(
-          `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-            import.meta.env.VITE_AUTH_URL
-          }/login`,
-          {
-            username,
-            password,
-          },
-          { withCredentials: true }
-        ),
-        {
-          loading: "Logging in...",
-          success: (response) => {
-            navigate("/")
-            console.log(response)
-            return "Login berhasil"
-          },
-          error: (error) => {
-            console.log(error.response)
-            return error.response.data.data.message
-          },
-        }
-      )
-    } catch (error) {
-      console.log(error)
-    }
+    dispatch(loginUser({ username, password }))
+
+    // try {
+    //   await toast.promise(
+    //     axios.post(
+    //       `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+    //         import.meta.env.VITE_AUTH_URL
+    //       }/login`,
+    //       {
+    //         username,
+    //         password,
+    //       },
+    //       { withCredentials: true }
+    //     ),
+    //     {
+    //       loading: "Logging in...",
+    //       success: (response) => {
+    //         navigate("/")
+    //         console.log(response)
+    //         return "Login berhasil"
+    //       },
+    //       error: (error) => {
+    //         console.log(error.response)
+    //         return error.response.data.data.message
+    //       },
+    //     }
+    //   )
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   return (

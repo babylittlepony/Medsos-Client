@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { userSelector } from "../slices/UserSlice"
+// import { userSelector } from "../slices/UserSlice"
 
 const Register = () => {
   const [username, setUsername] = useState("")
@@ -16,8 +16,8 @@ const Register = () => {
   const navigate = useNavigate()
   const { register, errors, handleSubmit } = useForm()
 
-  const { isFetching, isSuccess, isError, errorMessage } =
-    useSelector(userSelector)
+  // const { isFetching, isSuccess, isError, errorMessage } =
+  //   useSelector(userSelector)
 
   // const onSubmit = (data) => {
   //   dispatch(registerUser(data))
