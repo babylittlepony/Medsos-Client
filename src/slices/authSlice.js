@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 
-axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true"
-
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -64,7 +62,7 @@ export const loginUser = (credentials) => async (dispatch) => {
     return Promise.resolve(response.data)
   } catch (error) {
     toast.remove()
-    console.log(JSON.stringify(error))
+    console.log(error)
     dispatch(loginFailure(error.response?.data?.error))
     toast.error(error.response?.data?.data?.message || "Login gagal")
     return Promise.reject(error.response?.data?.data?.message)

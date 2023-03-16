@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { registerUser } from "../slices/authSlice"
 
@@ -11,7 +11,6 @@ const Register = () => {
   const [no_selular, set_noSelular] = useState("")
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const handleRegister = async (e) => {
     e.preventDefault()

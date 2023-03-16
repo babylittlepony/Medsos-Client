@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { logout, logoutUser } from "../slices/authSlice"
+import { logoutUser } from "../slices/authSlice"
 
 export const Navbar = () => {
   const currentUser = useSelector((state) => state.auth.currentUser)

@@ -1,12 +1,8 @@
-import axios from "axios"
 import React, { useState } from "react"
-import { useForm } from "react-hook-form"
-import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { saveState } from "../helper/manageState"
+
 import { loginUser } from "../slices/authSlice"
-// import { userSelector } from "../slices/UserSlice"
 
 const Login = ({}) => {
   const [username, setUsername] = useState("")
@@ -14,7 +10,6 @@ const Login = ({}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const currentUser = useSelector((state) => state.auth.currentUser)
 
   /*/ 
   Username: Egarpramana
