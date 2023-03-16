@@ -3,30 +3,30 @@ import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 import { Provider } from "react-redux"
-import App from "./App"
 import "./index.css"
-import Login from "./components/Login"
-import Register from "./components/Register"
-import EmailVerification from "./components/Verification"
+import HomePage from "./App"
+import LoginPage from "./components/Login"
+import RegisterPage from "./components/Register"
+import EmailVerificationPage from "./components/Verification"
 
 import store from "./app/store"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <LoginPage />,
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <RegisterPage />,
   },
   {
     path: "/verification/:code",
-    element: <EmailVerification />,
+    element: <EmailVerificationPage />,
   },
 ])
 
