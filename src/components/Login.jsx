@@ -24,8 +24,12 @@ const Login = ({}) => {
   const handleLogin = async (e) => {
     e.preventDefault()
 
-    dispatch(loginUser({ username, password }))
-    navigate("/")
+    try {
+      await dispatch(loginUser({ username, password }))
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

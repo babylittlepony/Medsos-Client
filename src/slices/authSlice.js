@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 
+axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true"
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -40,24 +42,29 @@ const authSlice = createSlice({
   },
 })
 
+const api = axios.create({
+  baseURL: `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+    import.meta.env.VITE_AUTH_URL
+  }`,
+  withCredentials: true,
+})
+
 export const loginUser = (credentials) => async (dispatch) => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-        import.meta.env.VITE_AUTH_URL
-      }/login`,
-      credentials,
-      { withCredentials: true }
-    )
+    toast.loading("Logged in...")
+    const response = await api.post("/login", credentials)
     const data = response.data.data
     const token = response.data.data.accessToken
+
     dispatch(loginSuccess({ data, token }))
+    toast.remove()
 
     console.log(response)
     toast.success("Login sukses")
     return Promise.resolve(response.data)
   } catch (error) {
-    console.log(error)
+    toast.remove()
+    console.log(JSON.stringify(error))
     dispatch(loginFailure(error.response?.data?.error))
     toast.error(error.response?.data?.data?.message || "Login gagal")
     return Promise.reject(error.response?.data?.data?.message)
@@ -66,14 +73,14 @@ export const loginUser = (credentials) => async (dispatch) => {
 
 export const logoutUser = (token) => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-        import.meta.env.VITE_AUTH_URL
-      }/logout`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
+    toast.loading("Logged out...")
+    const response = await api.get("/logout", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
 
     dispatch(logout())
+    toast.remove()
+
     toast.success("Logout sukses")
     return Promise.resolve(response.data)
   } catch (error) {
@@ -85,24 +92,24 @@ export const logoutUser = (token) => async (dispatch) => {
 
 export const registerUser = (userData) => async (dispatch) => {
   try {
-    dispatch(registerStart())
     toast.loading("Register...")
+    dispatch(registerStart())
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-        import.meta.env.VITE_AUTH_URL
-      }/register`,
-      userData
-    )
+    const response = await api.post("/register", userData)
+    toast.remove()
 
     console.log(response)
     toast.success(response.data?.data?.message)
     return Promise.resolve(response.data)
   } catch (error) {
-    dispatch(registerFailure(error.response.data.error))
+    toast.remove()
+    dispatch(registerFailure(error.response))
     console.log(error)
-    toast.error(error.response.data.data.message || "Error, please try again")
-    return Promise.reject(error.response.data.data.message)
+    toast.error(
+      error.response.data?.data?.message ||
+        "Registrasi gagal, silahkan coba lagi"
+    )
+    return Promise.reject(error.response.data?.data?.message)
   }
 }
 
