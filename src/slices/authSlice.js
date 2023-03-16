@@ -26,16 +26,11 @@ const authSlice = createSlice({
       state.currentUser = null
       state.isLoggedIn = false
       state.error = null
+      state.token = null
     },
     registerStart(state) {
       state.loading = true
       state.error = null
-    },
-    registerSuccess(state, action) {
-      state.currentUser = action.payload
-      state.isLoggedIn = true
-      state.error = null
-      state.loading = false
     },
     registerFailure(state, action) {
       state.currentUser = null
@@ -51,7 +46,8 @@ export const loginUser = (credentials) => async (dispatch) => {
       `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
         import.meta.env.VITE_AUTH_URL
       }/login`,
-      credentials
+      credentials,
+      { withCredentials: true }
     )
     const data = response.data.data
     const token = response.data.data.accessToken
@@ -63,8 +59,27 @@ export const loginUser = (credentials) => async (dispatch) => {
   } catch (error) {
     console.log(error)
     dispatch(loginFailure(error.response?.data?.error))
-    toast.error("Login gagal")
-    return Promise.reject(error.response.data.error)
+    toast.error(error.response?.data?.data?.message || "Login gagal")
+    return Promise.reject(error.response?.data?.data?.message)
+  }
+}
+
+export const logoutUser = (token) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
+        import.meta.env.VITE_AUTH_URL
+      }/logout`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+
+    dispatch(logout())
+    toast.success("Logout sukses")
+    return Promise.resolve(response.data)
+  } catch (error) {
+    console.log(error)
+    toast.error("Logout gagal")
+    return Promise.reject(error.response.data.data.message)
   }
 }
 
@@ -80,7 +95,6 @@ export const registerUser = (userData) => async (dispatch) => {
       userData
     )
 
-    dispatch(registerSuccess(response.data))
     console.log(response)
     toast.success(response.data?.data?.message)
     return Promise.resolve(response.data)
@@ -88,7 +102,7 @@ export const registerUser = (userData) => async (dispatch) => {
     dispatch(registerFailure(error.response.data.error))
     console.log(error)
     toast.error(error.response.data.data.message || "Error, please try again")
-    return Promise.reject(error.response.data.error)
+    return Promise.reject(error.response.data.data.message)
   }
 }
 

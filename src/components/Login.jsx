@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { saveState } from "../helper/manageState"
 import { loginUser } from "../slices/authSlice"
 // import { userSelector } from "../slices/UserSlice"
 
@@ -13,6 +14,7 @@ const Login = ({}) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const currentUser = useSelector((state) => state.auth.currentUser)
 
   /*/ 
   Username: Egarpramana
@@ -24,35 +26,6 @@ const Login = ({}) => {
 
     dispatch(loginUser({ username, password }))
     navigate("/")
-
-    // try {
-    //   await toast.promise(
-    //     axios.post(
-    //       `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-    //         import.meta.env.VITE_AUTH_URL
-    //       }/login`,
-    //       {
-    //         username,
-    //         password,
-    //       },
-    //       { withCredentials: true }
-    //     ),
-    //     {
-    //       loading: "Logging in...",
-    //       success: (response) => {
-    //         navigate("/")
-    //         console.log(response)
-    //         return "Login berhasil"
-    //       },
-    //       error: (error) => {
-    //         console.log(error.response)
-    //         return error.response.data.data.message
-    //       },
-    //     }
-    //   )
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }
 
   return (

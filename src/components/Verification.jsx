@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 import toast from "react-hot-toast"
@@ -24,7 +24,10 @@ const EmailVerification = () => {
     } catch (error) {
       setIsLoading(false)
       console.error(error)
-      return toast.error(error.response?.data?.data?.message)
+      return toast.error(
+        error.response?.data?.data?.message ||
+          "Verifikasi gagal, silahkan coba lagi"
+      )
     }
   }
 
