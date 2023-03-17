@@ -1,92 +1,107 @@
-import React, { useState } from "react"
+import React from "react"
+import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
+
+import registerRules from "../helper/validationRules"
 import { registerUser } from "../slices/authSlice"
 
 const Register = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [nama, setNama] = useState("")
-  const [email, setEmail] = useState("")
-  const [no_selular, set_noSelular] = useState("")
-
   const dispatch = useDispatch()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
-  const handleRegister = async (e) => {
-    e.preventDefault()
-
-    dispatch(registerUser({ username, password, nama, email, no_selular }))
+  const onSubmit = (data) => {
+    dispatch(registerUser(data))
+    console.log(data)
   }
 
   return (
-    <div className="w-1/2 mx-auto my-10 max-w-sm bg-gray-200 shadow-md">
+    <div className="mx-auto my-10 w-1/2 max-w-sm bg-gray-200 shadow-md">
       <div className="p-6">
         {/* FORM */}
-        <form method="POST" onSubmit={handleRegister}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="username">
               Username
             </label>
             <input
-              className="outline-none border rounded-md p-1 bg-gray-50 border-gray-300 text-gray-900"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none ${
+                errors?.username && "border-red-300"
+              } text-gray-900`}
               type="text"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder
+              {...register("username", registerRules.username)}
             />
+            {errors?.username && (
+              <span className="mt-2 text-sm">{errors.username.message}</span>
+            )}
           </div>
-          <div className="flex flex-col my-4">
+          <div className="my-4 flex flex-col">
             <label className="font-medium" htmlFor="password">
               Password
             </label>
             <input
-              className="outline-none border p-1 rounded-md bg-gray-50 border-gray-300 text-gray-900"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none  ${
+                errors?.password && "border-red-300"
+              }  text-gray-900`}
               type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", registerRules.password)}
             />
+            {errors?.password && (
+              <span className="mt-2 text-sm"> {errors.password.message}</span>
+            )}
           </div>
-          <div className="flex flex-col my-4">
+          <div className="my-4 flex flex-col">
             <label className="font-medium" htmlFor="nama">
               Nama
             </label>
             <input
-              className="outline-none border p-1 rounded-md bg-gray-50 border-gray-300 text-gray-900"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none  ${
+                errors?.nama && "border-red-300"
+              }  text-gray-900`}
               type="text"
-              name="nama"
-              value={nama}
-              onChange={(e) => setNama(e.target.value)}
+              {...register("nama", registerRules.nama)}
             />
+            {errors?.nama && (
+              <span className="mt-2 text-sm">{errors.nama.message}</span>
+            )}
           </div>
-          <div className="flex flex-col my-4">
+          <div className="my-4 flex flex-col">
             <label className="font-medium" htmlFor="email">
               Email
             </label>
             <input
-              className="outline-none border p-1 rounded-md bg-gray-50 border-gray-300 text-gray-900"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none  ${
+                errors?.email && "border-red-300"
+              }  text-gray-900`}
               type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", registerRules.email)}
             />
+            {errors?.email && (
+              <span className="mt-2 text-sm">{errors.email.message}</span>
+            )}
           </div>
-          <div className="flex flex-col my-4">
+          <div className="my-4 flex flex-col">
             <label className="font-medium" htmlFor="no_selular">
               Nomor Selular
             </label>
             <input
-              className="outline-none border p-1 rounded-md bg-gray-50 border-gray-300 text-gray-900"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none ${
+                errors?.no_selular && "border-red-300"
+              }  text-gray-900`}
               type="number"
               min={0}
-              name="no_selular"
-              value={no_selular}
-              onChange={(e) => set_noSelular(e.target.value)}
+              {...register("no_selular", registerRules.no_selular)}
             />
+            {errors?.no_selular && (
+              <span className="mt-2 text-sm">{errors.no_selular.message}</span>
+            )}
           </div>
           <button
             type="submit"
-            className="text-center w-full py-2 mt-4 bg-gray-300 font-bold"
+            className="mt-4 w-full bg-gray-300 py-2 text-center font-bold"
           >
             Register
           </button>

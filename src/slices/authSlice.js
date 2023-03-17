@@ -103,10 +103,7 @@ export const registerUser = (userData) => async (dispatch) => {
     toast.remove()
     dispatch(registerFailure(error.response))
     console.log(error)
-    toast.error(
-      error.response.data?.data?.message ||
-        "Registrasi gagal, silahkan coba lagi"
-    )
+    toast.error(error.response || "Registrasi gagal, silahkan coba lagi")
     return Promise.reject(error.response.data?.data?.message)
   }
 }

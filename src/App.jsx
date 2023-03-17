@@ -10,7 +10,7 @@ function App() {
   console.log(authState)
 
   return (
-    <div className="px-4 m-8 max-w-screen-lg mx-auto">
+    <div className="m-8 mx-auto max-w-screen-lg px-4">
       <Navbar />
       <div>
         {currentUser ? (
