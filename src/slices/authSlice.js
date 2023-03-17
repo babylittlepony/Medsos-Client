@@ -40,10 +40,10 @@ const authSlice = createSlice({
   },
 })
 
+const { VITE_BASE_URL, VITE_PORT, VITE_AUTH_URL } = import.meta.env
+
 const api = axios.create({
-  baseURL: `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-    import.meta.env.VITE_AUTH_URL
-  }`,
+  baseURL: `${VITE_BASE_URL}:${VITE_PORT}/${VITE_AUTH_URL}`,
   withCredentials: true,
 })
 

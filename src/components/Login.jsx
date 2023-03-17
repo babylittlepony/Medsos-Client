@@ -1,26 +1,30 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import loginRules from "../helper/validationRules"
 
 import { loginUser } from "../slices/authSlice"
 
 const Login = ({}) => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
   /*/ 
   Username: Egarpramana
   Password: egar123
   /*/
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-
+  const onSubmit = async (data) => {
     try {
-      await dispatch(loginUser({ username, password }))
+      console.log(data)
+      await dispatch(loginUser(data))
       navigate("/")
     } catch (error) {
       console.log(error)
@@ -28,34 +32,41 @@ const Login = ({}) => {
   }
 
   return (
-    <div className="mx-auto my-10 w-1/2 max-w-sm bg-gray-200 shadow-md">
+    <div className="mx-auto my-10 w-1/2 max-w-sm rounded-md bg-gray-200 shadow-md">
       <div className="p-6">
         {/* FORM */}
-        <form method="POST" onSubmit={handleLogin}>
+        <form method="POST" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col">
             <label className="font-medium" htmlFor="username">
               Username
             </label>
             <input
-              className="rounded-md border border-gray-300 bg-gray-50 p-1 text-gray-900 outline-none"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none  ${
+                errors?.username && "border-red-300"
+              }  text-gray-900`}
               type="text"
               name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder
+              {...register("username", loginRules.username)}
             />
+            {errors?.username && (
+              <span className="mt-2 text-sm">{errors.username.message}</span>
+            )}
           </div>
           <div className="my-4 flex flex-col">
             <label className="font-medium" htmlFor="password">
               Password
             </label>
             <input
-              className="rounded-md border border-gray-300 bg-gray-50 p-1 text-gray-900 outline-none"
+              className={`rounded-md border border-gray-300 bg-gray-50 p-1 outline-none  ${
+                errors?.password && "border-red-300"
+              }  text-gray-900`}
               type="password"
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", loginRules.password)}
             />
+            {errors?.password && (
+              <span className="mt-2 text-sm">{errors.password.message}</span>
+            )}
           </div>
           <button
             type="submit"

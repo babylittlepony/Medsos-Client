@@ -19,7 +19,7 @@ const Register = () => {
   }
 
   return (
-    <div className="mx-auto my-10 w-1/2 max-w-sm bg-gray-200 shadow-md">
+    <div className="mx-auto my-10 w-1/2 max-w-sm rounded-md bg-gray-200 shadow-md">
       <div className="p-6">
         {/* FORM */}
         <form onSubmit={handleSubmit(onSubmit)}>

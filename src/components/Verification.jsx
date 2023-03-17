@@ -8,19 +8,17 @@ const EmailVerification = () => {
 
   const { code } = useParams()
   const navigate = useNavigate()
+  const { VITE_BASE_URL, VITE_PORT, VITE_AUTH_URL } = import.meta.env
 
   const verifyEmail = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_PORT}/${
-          import.meta.env.VITE_AUTH_URL
-        }/verification/${code}`
+        `${VITE_BASE_URL}:${VITE_PORT}/${VITE_AUTH_URL}/verification/${code}`
       )
-      if (response.status === 201) {
-        setIsLoading(false)
-        navigate("/")
-        return toast.success(response.data?.data?.message)
-      }
+
+      setIsLoading(false)
+      navigate("/")
+      return toast.success(response.data?.data?.message)
     } catch (error) {
       setIsLoading(false)
       console.error(error)
