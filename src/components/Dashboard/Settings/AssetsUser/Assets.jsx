@@ -3,6 +3,7 @@ import "react-responsive-modal/styles.css"
 import { Modal } from "react-responsive-modal"
 
 import { AssetsForm } from "./AssetsForm"
+import { AssetsTable } from "./AssetsTable"
 import "./custom-modal.css"
 
 const Assets = () => {
@@ -17,17 +18,17 @@ const Assets = () => {
         <h1 className="text-xl font-bold">Assets List</h1>
         <div className="flex gap-4">
           <button onClick={onOpenModal}>Create</button>
-          <button>Delete</button>
+          <button>Refresh</button>
+          <Modal
+            open={open}
+            onClose={onCloseModal}
+            classNames={{ modal: "customModal" }}
+          >
+            <AssetsForm />
+          </Modal>
         </div>
       </div>
-      <Modal
-        open={open}
-        onClose={onCloseModal}
-        classNames={{ modal: "customModal" }}
-      >
-        <AssetsForm />
-      </Modal>
-      <div>Asset</div>
+      <AssetsTable />
     </div>
   )
 }

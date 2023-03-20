@@ -8,15 +8,15 @@ export const AssetsForm = () => {
     formState: { errors },
   } = useForm()
 
-  const handleCloseClick = () => {
-    setShowForm(false)
+  const onSubmit = (data) => {
+    console.log(data)
   }
 
   return (
     <div>
       <h1 className="text-center text-xl font-bold">Buat Assets</h1>
       {/* FORM */}
-      <form method="POST">
+      <form method="POST" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <label className="font-medium" htmlFor="username">
             Username
@@ -68,7 +68,7 @@ export const AssetsForm = () => {
             <option value="facebook">Facebook</option>
             <option value="tiktok">Tiktok</option>
             <option value="twitter">Twitter</option>
-            <option value="twitter">Youtube</option>
+            <option value="youtube">Youtube</option>
           </select>
         </div>
         <button
@@ -77,7 +77,6 @@ export const AssetsForm = () => {
         >
           Create
         </button>
-        <button onClick={handleCloseClick}>Close</button>
       </form>
     </div>
   )
