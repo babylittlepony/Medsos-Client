@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
+import { toast } from "react-hot-toast"
 
 import { navigation } from "../helper/navigateRoute"
 import { logoutUser } from "../slices/authSlice"
@@ -11,7 +12,20 @@ export const Navbar = () => {
   const { navigateLogin, navigateRegister, navigateDashboard } = navigation()
 
   const handleLogout = () => {
-    dispatch(logoutUser(token))
+    dispatch(logoutUser(token)).catch((err) => {
+      console.log("hadnlelogout err", err)
+
+      if (err === "jwt expired") {
+        toast.success("Silahkan login kembali")
+        dispatch(logout())
+        navigateLogin()
+      }
+
+      if (err === "Sesi tidak tersedia") {
+        toast.success("Silahkan login kembali")
+        navigateLogin()
+      }
+    })
   }
 
   return (

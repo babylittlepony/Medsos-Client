@@ -1,6 +1,7 @@
 import React from "react"
 import { useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { toast } from "react-hot-toast"
 
 import { navigation } from "../helper/navigateRoute"
 import loginRules from "../helper/validationRules"
@@ -15,16 +16,11 @@ const Login = ({}) => {
     formState: { errors },
   } = useForm()
 
-  /*/ 
-  Username: Egarpramana
-  Password: egar123
-  /*/
-
   const onSubmit = async (data) => {
     try {
       console.log(data)
       await dispatch(loginUser(data))
-      navigateHome
+      navigateHome()
     } catch (error) {
       console.log(error)
     }

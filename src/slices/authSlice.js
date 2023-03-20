@@ -28,14 +28,9 @@ const authSlice = createSlice({
       state.error = null
       state.token = null
     },
-    registerStart(state) {
-      state.loading = true
-      state.error = null
-    },
     registerFailure(state, action) {
       state.currentUser = null
       state.error = action.payload
-      state.loading = false
     },
   },
 })
@@ -82,8 +77,8 @@ export const logoutUser = (token) => async (dispatch) => {
     toast.success("Logout sukses")
     return Promise.resolve(response.data)
   } catch (error) {
+    toast.remove()
     console.log(error)
-    toast.error("Logout gagal")
     return Promise.reject(error.response.data.data.message)
   }
 }
@@ -91,7 +86,6 @@ export const logoutUser = (token) => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
   try {
     toast.loading("Register...")
-    dispatch(registerStart())
 
     const response = await api.post("/register", userData)
     toast.remove()
@@ -111,7 +105,6 @@ export const registerUser = (userData) => async (dispatch) => {
 export const {
   loginSuccess,
   loginFailure,
-  registerStart,
   registerSuccess,
   registerFailure,
   logout,

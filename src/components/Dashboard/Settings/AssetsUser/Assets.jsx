@@ -1,9 +1,9 @@
 import { useState } from "react"
-import "react-responsive-modal/styles.css"
 import { Modal } from "react-responsive-modal"
 
 import { AssetsForm } from "./AssetsForm"
 import { AssetsTable } from "./AssetsTable"
+import "react-responsive-modal/styles.css"
 import "./custom-modal.css"
 
 const Assets = () => {
