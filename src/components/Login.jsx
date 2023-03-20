@@ -1,15 +1,14 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import loginRules from "../helper/validationRules"
 
+import { navigation } from "../helper/navigateRoute"
+import loginRules from "../helper/validationRules"
 import { loginUser } from "../slices/authSlice"
 
 const Login = ({}) => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
-
+  const { navigateHome } = navigation()
   const {
     register,
     handleSubmit,
@@ -25,7 +24,7 @@ const Login = ({}) => {
     try {
       console.log(data)
       await dispatch(loginUser(data))
-      navigate("/")
+      navigateHome
     } catch (error) {
       console.log(error)
     }

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import assetsRules from "../../../../helper/validationRules"
 
-export const AssetsForm = ({ setShowForm }) => {
+export const AssetsForm = () => {
   const {
     register,
     handleSubmit,
@@ -13,8 +13,8 @@ export const AssetsForm = ({ setShowForm }) => {
   }
 
   return (
-    <div className="fixed top-10 right-0 left-0 mx-auto w-full max-w-screen-sm rounded-md border-2 border-gray-800 shadow-lg">
-      <div className="m-4 p-4">
+    <div className="">
+      <div className="">
         <h1 className="text-center text-xl font-bold">Buat Assets</h1>
         {/* FORM */}
         <form method="POST">
@@ -64,7 +64,7 @@ export const AssetsForm = ({ setShowForm }) => {
             )}
           </div>
           <div className="my-4 flex flex-col">
-            <select {...register("platform")}>
+            <select {...register("platform")} className="p-2">
               <option value="instagram">Instagram</option>
               <option value="facebook">Facebook</option>
               <option value="tiktok">Tiktok</option>

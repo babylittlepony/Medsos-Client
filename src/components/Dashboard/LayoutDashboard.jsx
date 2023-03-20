@@ -6,22 +6,21 @@ const Dashboard = () => {
   const [showSettings, setShowSettings] = useState(false)
   const navigate = useNavigate()
 
-  const handleClick = () => {
+  const handleOpenSettings = () => {
     setShowSettings(true)
   }
-
   const navigateHome = () => {
     navigate("/")
   }
 
   return (
-    <div>
+    <div className="p-4">
       <div>
         <div>
           <button onClick={navigateHome}>Logo</button>
         </div>
         <div>
-          <button onClick={handleClick}>Pengaturan</button>
+          <button onClick={handleOpenSettings}>Pengaturan</button>
         </div>
         {showSettings && <Settings setShowSettings={setShowSettings} />}
       </div>

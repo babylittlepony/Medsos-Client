@@ -1,22 +1,15 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+
+import { navigation } from "../helper/navigateRoute"
 import { logoutUser } from "../slices/authSlice"
 
 export const Navbar = () => {
   const currentUser = useSelector((state) => state.auth.currentUser)
   const token = useSelector((state) => state.auth.token)
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const navigateLogin = () => {
-    navigate("/login")
-  }
-  const navigateRegister = () => {
-    navigate("/register")
-  }
-  const navigateDashboard = () => {
-    navigate("/dashboard")
-  }
+  const { navigateLogin, navigateRegister, navigateDashboard } = navigation()
+
   const handleLogout = () => {
     dispatch(logoutUser(token))
   }
