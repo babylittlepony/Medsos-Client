@@ -1,8 +1,7 @@
 import { useState } from "react"
-
 import { AssetsForm } from "./AssetsForm"
 
-const Settings = () => {
+const Assets = () => {
   const [showForm, setShowForm] = useState(false)
 
   const handleCreateClick = () => {
@@ -10,10 +9,10 @@ const Settings = () => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-lg p-4">
-      <div>
+    <div>
+      <div className="my-8 flex justify-between">
         <h1 className="text-xl font-bold">Assets List</h1>
-        <div>
+        <div className="flex gap-4">
           <button onClick={handleCreateClick}>Create</button>
           <button>Delete</button>
         </div>
@@ -24,4 +23,4 @@ const Settings = () => {
   )
 }
 
-export default Settings
+export default Assets

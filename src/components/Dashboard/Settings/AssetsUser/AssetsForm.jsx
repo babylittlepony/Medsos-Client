@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import assetsRules from "../../../helper/validationRules"
+import assetsRules from "../../../../helper/validationRules"
 
 export const AssetsForm = ({ setShowForm }) => {
   const {
@@ -13,7 +13,7 @@ export const AssetsForm = ({ setShowForm }) => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-sm rounded-md border-2 border-gray-800 shadow-lg">
+    <div className="fixed top-10 right-0 left-0 mx-auto w-full max-w-screen-sm rounded-md border-2 border-gray-800 shadow-lg">
       <div className="m-4 p-4">
         <h1 className="text-center text-xl font-bold">Buat Assets</h1>
         {/* FORM */}

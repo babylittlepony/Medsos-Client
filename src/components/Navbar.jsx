@@ -14,8 +14,8 @@ export const Navbar = () => {
   const navigateRegister = () => {
     navigate("/register")
   }
-  const navigateSettings = () => {
-    navigate("/settings")
+  const navigateDashboard = () => {
+    navigate("/dashboard")
   }
   const handleLogout = () => {
     dispatch(logoutUser(token))
@@ -26,7 +26,7 @@ export const Navbar = () => {
       <p className="text-lg">Logo</p>
       {currentUser ? (
         <div className="inline-flex gap-4">
-          <button onClick={navigateSettings}>Dashboard</button>
+          <button onClick={navigateDashboard}>Dashboard</button>
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (

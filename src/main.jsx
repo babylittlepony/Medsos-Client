@@ -3,12 +3,13 @@ import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 import { Provider } from "react-redux"
+
 import "./index.css"
 import HomePage from "./App"
 import LoginPage from "./components/Login"
 import RegisterPage from "./components/Register"
 import EmailVerificationPage from "./components/Verification"
-import SettingsUserPage from "./components/Dashboard/Settings/Settings"
+import Dashboard from "./components/Dashboard/LayoutDashboard"
 
 import store from "./app/store"
 
@@ -26,8 +27,8 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: "/settings",
-    element: <SettingsUserPage />,
+    path: "/dashboard",
+    element: <Dashboard />,
   },
   {
     path: "/verification/:code",
