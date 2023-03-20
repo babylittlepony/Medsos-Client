@@ -93,6 +93,7 @@ const Register = () => {
               }  text-gray-900`}
               type="number"
               min={0}
+              placeholder="+62"
               {...register("no_selular", registerRules.no_selular)}
             />
             {errors?.no_selular && (

@@ -8,6 +8,7 @@ import HomePage from "./App"
 import LoginPage from "./components/Login"
 import RegisterPage from "./components/Register"
 import EmailVerificationPage from "./components/Verification"
+import SettingsUserPage from "./components/Dashboard/Settings/Settings"
 
 import store from "./app/store"
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/settings",
+    element: <SettingsUserPage />,
   },
   {
     path: "/verification/:code",

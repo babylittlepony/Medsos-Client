@@ -8,6 +8,9 @@ const validationRules = {
   nama: {
     required: { value: true, message: "Nama wajib di isi" },
   },
+  nama_akun: {
+    required: { value: true, message: "Nama akun wajib di isi" },
+  },
   email: {
     required: { value: true, message: "Email wajib di isi" },
   },

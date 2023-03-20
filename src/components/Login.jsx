@@ -45,7 +45,6 @@ const Login = ({}) => {
                 errors?.username && "border-red-300"
               }  text-gray-900`}
               type="text"
-              name="username"
               {...register("username", loginRules.username)}
             />
             {errors?.username && (
@@ -61,7 +60,6 @@ const Login = ({}) => {
                 errors?.password && "border-red-300"
               }  text-gray-900`}
               type="password"
-              name="password"
               {...register("password", loginRules.password)}
             />
             {errors?.password && (
