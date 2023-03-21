@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast"
 
 import { navigation } from "../helper/navigateRoute"
 import loginRules from "../helper/validationRules"
-import { loginUser } from "../slices/authSlice"
+import { loginFailure, loginUser } from "../slices/authSlice"
 
 const Login = ({}) => {
   const dispatch = useDispatch()
@@ -23,6 +23,10 @@ const Login = ({}) => {
       navigateHome()
     } catch (error) {
       console.log(error)
+      if (error === "Sesi akun sedang aktif, silahkan keluar terlebih dahulu") {
+        navigateHome()
+        window.location.reload()
+      }
     }
   }
 

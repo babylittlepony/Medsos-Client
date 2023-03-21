@@ -20,6 +20,8 @@
     "react-responsive-modal": "^6.4.1",
     "react-router-dom": "^6.8.2",
     "react-validation": "^3.0.7",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {

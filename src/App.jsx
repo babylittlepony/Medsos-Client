@@ -2,10 +2,9 @@ import { useSelector } from "react-redux"
 import { Navbar } from "./components/Navbar"
 
 function App() {
-  const currentUser = useSelector((state) => state.auth.currentUser)
   const authState = useSelector((state) => state.auth)
-
-  const username = currentUser ? currentUser.data?.username : null
+  const currentUser = authState?.currentUser
+  const username = currentUser?.data?.username
 
   console.log(authState)
 

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 import { toast } from "react-hot-toast"
+import { getFirstLocalToken, getNewLocalToken } from "../helper/getLocalToken"
 
 const authSlice = createSlice({
   name: "auth",
@@ -42,6 +43,63 @@ const api = axios.create({
   withCredentials: true,
 })
 
+api.interceptors.request.use(
+  (config) => {
+    const newToken = getNewLocalToken()
+
+    let token
+    if (!newToken) {
+      token = getFirstLocalToken()
+      console.log("using first token")
+    } else {
+      token = getNewLocalToken()
+      console.log("using new token")
+    }
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+api.interceptors.response.use(
+  (res) => {
+    return res
+  },
+  async (err) => {
+    const originalConfig = err.config
+
+    if (
+      err.response &&
+      err.response.data?.data?.message === "jwt expired" &&
+      !originalConfig._retry
+    ) {
+      originalConfig._retry = true
+
+      try {
+        const rs = await api.get("/refresh-token")
+        const { token } = rs.data.data
+
+        localStorage.setItem("new token", JSON.stringify(token))
+
+        originalConfig.headers.Authorization = `Bearer ${token}`
+
+        return api(originalConfig)
+      } catch (err) {
+        console.log("Error refreshing token", err)
+        return Promise.reject(err)
+      }
+    }
+
+    return Promise.reject(err)
+  }
+)
+
 export const loginUser = (credentials) => async (dispatch) => {
   try {
     toast.loading("Logged in...")
@@ -56,11 +114,19 @@ export const loginUser = (credentials) => async (dispatch) => {
     toast.success("Login sukses")
     return Promise.resolve(response.data)
   } catch (error) {
-    toast.remove()
     console.log(error)
+    const errMessage = error.response?.data?.data?.message
+    toast.remove()
+
+    if (
+      errMessage === "Sesi akun sedang aktif, silahkan keluar terlebih dahulu"
+    ) {
+      return toast.error(errMessage)
+    }
+
     dispatch(loginFailure(error.response?.data?.error))
-    toast.error(error.response?.data?.data?.message || "Login gagal")
-    return Promise.reject(error.response?.data?.data?.message)
+    toast.error(errMessage || "Login gagal")
+    return Promise.reject(errMessage)
   }
 }
 
@@ -75,11 +141,11 @@ export const logoutUser = (token) => async (dispatch) => {
     toast.remove()
 
     toast.success("Logout sukses")
-    return Promise.resolve(response.data)
+    return Promise.resolve(response)
   } catch (error) {
     toast.remove()
     console.log(error)
-    return Promise.reject(error.response.data.data.message)
+    return Promise.reject(error.response)
   }
 }
 
