@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import axios from "axios"
 import toast from "react-hot-toast"
+import api from "../services/api"
 
 const EmailVerification = () => {
   const [isLoading, setIsLoading] = useState(true)
-
   const { code } = useParams()
   const navigate = useNavigate()
-  const { VITE_BASE_URL, VITE_PORT, VITE_AUTH_URL } = import.meta.env
 
   const verifyEmail = async () => {
     try {
-      const response = await axios.get(
-        `${VITE_BASE_URL}:${VITE_PORT}/${VITE_AUTH_URL}/verification/${code}`
-      )
+      const response = await api.get(`/auth/verification/${code}`)
 
       setIsLoading(false)
       navigate("/")

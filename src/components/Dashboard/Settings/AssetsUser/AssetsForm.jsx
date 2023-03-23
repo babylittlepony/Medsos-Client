@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form"
+import { toast } from "react-hot-toast"
 import assetsRules from "../../../../helper/validationRules"
+import api from "../../../../services/api"
 
 export const AssetsForm = () => {
   const {
@@ -8,8 +10,20 @@ export const AssetsForm = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    try {
+      const res = await api.post("/assets/platform", {
+        ...data,
+        id_pengguna: 17,
+      })
+      toast.loading()
+      console.log(res)
+      toast.remove()
+      toast.success("Sukses membuat Asset")
+    } catch (error) {
+      console.log(error)
+      toast.error("Gagal membuat Asset")
+    }
   }
 
   return (
@@ -64,11 +78,11 @@ export const AssetsForm = () => {
         </div>
         <div className="my-4 flex flex-col">
           <select {...register("platform")} className="p-2">
-            <option value="instagram">Instagram</option>
-            <option value="facebook">Facebook</option>
-            <option value="tiktok">Tiktok</option>
-            <option value="twitter">Twitter</option>
-            <option value="youtube">Youtube</option>
+            <option value="INSTAGRAM">Instagram</option>
+            <option value="FACEBOOK">Facebook</option>
+            <option value="TIKTOK">Tiktok</option>
+            <option value="TWITTER">Twitter</option>
+            <option value="YOUTUBE">Youtube</option>
           </select>
         </div>
         <button

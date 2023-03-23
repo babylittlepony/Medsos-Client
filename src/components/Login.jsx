@@ -1,11 +1,10 @@
 import React from "react"
 import { useForm } from "react-hook-form"
-import { useDispatch, useSelector } from "react-redux"
-import { toast } from "react-hot-toast"
+import { useDispatch } from "react-redux"
 
 import { navigation } from "../helper/navigateRoute"
 import loginRules from "../helper/validationRules"
-import { loginFailure, loginUser } from "../slices/authSlice"
+import { loginUser } from "../slices/authSlice"
 
 const Login = ({}) => {
   const dispatch = useDispatch()

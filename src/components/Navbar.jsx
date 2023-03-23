@@ -11,40 +11,49 @@ export const Navbar = () => {
   const dispatch = useDispatch()
   const { navigateLogin, navigateRegister, navigateDashboard } = navigation()
 
-  const handleLogout = () => {
-    dispatch(logoutUser(token)).catch((err) => {
-      console.log("handle logout err", err)
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser(token))
+    } catch (error) {
+      console.log("handle logout err", error)
 
-      if (err.data?.data?.message === "jwt expired") {
+      if (error.data?.data?.message === "jwt expired") {
         const newToken = localStorage.getItem("new token")
         dispatch(logoutUser(newToken))
-        toast.success("Login sukses")
+        toast.success("Logout sukses")
       }
 
-      if (err.status === 401) {
+      if (error.status === 401) {
         dispatch(logout())
         toast.success("Silahkan login kembali")
         navigateLogin()
       }
-    })
+    }
+  }
+
+  const renderAuthButtons = () => {
+    if (currentUser) {
+      return (
+        <>
+          <button onClick={navigateDashboard}>Dashboard</button>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <button onClick={navigateLogin}>Login</button>
+        <button onClick={navigateRegister}>Register</button>
+      </>
+    )
   }
 
   return (
     <div className="flex justify-between gap-4">
       <p className="text-lg">Logo</p>
-      {currentUser ? (
-        <div className="inline-flex gap-4">
-          <button onClick={navigateDashboard}>Dashboard</button>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div className="inline-flex gap-4">
-          <button onClick={navigateLogin} className="">
-            Login
-          </button>
-          <button onClick={navigateRegister}>Register</button>
-        </div>
-      )}
+
+      <div className="inline-flex gap-4">{renderAuthButtons()}</div>
     </div>
   )
 }
