@@ -15,9 +15,6 @@ const Dashboard = () => {
     <div className="p-4">
       <div>
         <div>
-          <button onClick={navigateHome}>Logo</button>
-        </div>
-        <div>
           <button onClick={handleOpenSettings}>Pengaturan</button>
         </div>
         {showSettings && <Settings setShowSettings={setShowSettings} />}

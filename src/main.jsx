@@ -10,7 +10,7 @@ import HomePage from "./App"
 import LoginPage from "./components/Login"
 import RegisterPage from "./components/Register"
 import EmailVerificationPage from "./components/Verification"
-import Dashboard from "./components/Dashboard/LayoutDashboard"
+import SettingsPage from "./components/Dashboard/LayoutDashboard"
 import store, { persistor } from "./app/store"
 
 const router = createBrowserRouter([
@@ -27,8 +27,8 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    path: "/settings",
+    element: <SettingsPage />,
   },
   {
     path: "/verification/:code",

@@ -1,15 +1,16 @@
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 
 import { Navbar } from "./components/Navbar"
 import { Sidebar } from "./components/Sidebar"
 import { navigation } from "./helper/navigateRoute"
-import Dashboard from "./components/Dashboard/LayoutDashboard"
+import SettingsPage from "./components/Dashboard/LayoutDashboard"
 
 function App() {
   const authState = useSelector((state) => state.auth)
   const currentUser = authState?.currentUser
-  const username = currentUser?.data?.username
+
   const { navigateLogin } = navigation()
 
   console.log(authState)
@@ -21,18 +22,22 @@ function App() {
   }, [currentUser])
 
   return (
-    <div>
+    <Router>
       <div>
-        <Navbar />
-        <Sidebar />
+        <div>
+          <Navbar />
+          <Sidebar />
+        </div>
+        <main className="main-content w-full pb-8">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/laporan" element={<Laporan />} />
+            <Route path="/mars" element={<Mars />} />
+            <Route path="/pengaturan" element={<SettingsPage />} />
+          </Routes>
+        </main>
       </div>
-      <main className="main-content w-full pb-8">
-        <Dashboard />
-        {/* Some Page */}
-        {/* Some Page */}
-        {/* Some Page */}
-      </main>
-    </div>
+    </Router>
   )
 }
 
