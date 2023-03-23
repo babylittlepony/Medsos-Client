@@ -2,7 +2,7 @@ import Assets from "./AssetsUser/Assets"
 
 const Layout = () => {
   return (
-    <div className="mx-auto max-w-screen-lg md:px-4">
+    <div className="mt-4 max-w-screen-lg md:pr-4 md:pl-8">
       <Assets />
     </div>
   )

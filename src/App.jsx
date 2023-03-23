@@ -11,8 +11,6 @@ import {
 import { Navbar } from "./components/Navbar"
 import { Sidebar } from "./components/Sidebar"
 import { navigation } from "./helper/navigateRoute"
-import SettingsPage from "./components/Dashboard/LayoutDashboard"
-import { Dashboard } from "./components/Dashboard"
 
 function App() {
   const authState = useSelector((state) => state.auth)

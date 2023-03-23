@@ -5,13 +5,14 @@ import { Toaster } from "react-hot-toast"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
+import store, { persistor } from "./app/store"
 import "./index.css"
 import HomePage from "./App"
 import LoginPage from "./components/Login"
 import RegisterPage from "./components/Register"
 import EmailVerificationPage from "./components/Verification"
-import SettingsPage from "./components/Dashboard/LayoutDashboard"
-import store, { persistor } from "./app/store"
+import LayoutPengaturan from "./components/Dashboard/Settings/LayoutSettings"
+import { Dashboard } from "./components/Dashboard"
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/settings",
-        element: <SettingsPage />,
+        element: <LayoutPengaturan />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
       },
     ],
   },
@@ -34,7 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/settings",
-    element: <SettingsPage />,
+    element: <LayoutPengaturan />,
   },
   {
     path: "/verification/:code",
