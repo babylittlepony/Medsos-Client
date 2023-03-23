@@ -9,7 +9,7 @@ export const Navbar = () => {
   const token = useSelector((state) => state.auth.token)
 
   const dispatch = useDispatch()
-  const { navigateLogin, navigateRegister, navigateDashboard } = navigation()
+  const { navigateLogin, navigateRegister } = navigation()
 
   const handleLogout = async () => {
     try {
@@ -35,7 +35,6 @@ export const Navbar = () => {
     if (currentUser) {
       return (
         <>
-          <button onClick={navigateDashboard}>Dashboard</button>
           <button onClick={handleLogout}>Logout</button>
         </>
       )
@@ -50,10 +49,14 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="flex justify-between gap-4">
-      <p className="text-lg">Logo</p>
-
-      <div className="inline-flex gap-4">{renderAuthButtons()}</div>
+    <div className="sidebar">
+      <nav className="header">
+        <div className="header-container relative flex w-full justify-between bg-white dark:bg-navy-700 print:hidden">
+          <button className="menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"></button>
+          <p className="invisible">Logo</p>
+          <div className="inline-flex gap-4">{renderAuthButtons()}</div>
+        </div>
+      </nav>
     </div>
   )
 }
