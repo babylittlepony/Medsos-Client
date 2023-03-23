@@ -1,17 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Variables */
 :root {
   @apply [--margin-x:1rem]
-    [--sidebar-panel-width:230px]
-    [--sidebar-panel-min-width:64px]
-    [--main-sidebar-width:7rem]
-    md:[--margin-x:1.5rem]
-    lg:[--sidebar-panel-width:240px]
-    lg:[--main-sidebar-width:8.5rem]
-    xl:[--margin-x:4rem];
+      [--sidebar-panel-width:230px]
+      [--sidebar-panel-min-width:64px]
+      [--main-sidebar-width:7rem]
+      md:[--margin-x:1.5rem]
+      lg:[--sidebar-panel-width:240px]
+      lg:[--main-sidebar-width:8.5rem]
+      xl:[--margin-x:4rem];
 }
 
 .has-min-sidebar {

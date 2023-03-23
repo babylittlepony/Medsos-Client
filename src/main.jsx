@@ -6,7 +6,7 @@ import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 
 import store, { persistor } from "./app/store"
-import "./index.css"
+import "./css/index.css"
 import HomePage from "./App"
 import LoginPage from "./components/Login"
 import RegisterPage from "./components/Register"

@@ -17,7 +17,12 @@ const Assets = () => {
       <div className="flex items-center justify-between pb-2">
         <h1 className="text-xl font-bold">Assets List</h1>
         <div className="flex gap-4">
-          <button onClick={onOpenModal}>Create</button>
+          <button
+            onClick={onOpenModal}
+            class="btn border border-success font-medium text-success hover:bg-success hover:text-white focus:bg-success focus:text-white active:bg-success/90"
+          >
+            Create
+          </button>
           <button class="btn space-x-2 rounded-full bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +38,6 @@ const Assets = () => {
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
               />
             </svg>
-            <span>Refresh</span>
           </button>
           <Modal
             open={open}
